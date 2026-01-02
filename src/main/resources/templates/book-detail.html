@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${book.title}">Book</title>
+</head>
+<body>
+
+<h1 th:text="${book.title}"></h1>
+
+<p><strong>Author:</strong> <span th:text="${book.author}"></span></p>
+<p><strong>Price:</strong> $<span th:text="${book.price}"></span></p>
+
+<img th:if="${book.imageUrl != null}" 
+     th:src="${book.imageUrl}" 
+     width="200"/>
+
+<br><br>
+<a href="/books">← Back to list</a>
+
+</body>
+</html>
