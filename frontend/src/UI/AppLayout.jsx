@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -6,7 +7,7 @@ function AppLayout() {
     <div>
       <Header />
       <main>
-        <p>Page content</p>
+        <Outlet />
       </main>
       <Footer />
     </div>
