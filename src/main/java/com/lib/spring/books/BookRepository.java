@@ -1,4 +1,4 @@
-package com.lib.spring;
+package com.lib.spring.books;
 
 import java.util.List;
 
