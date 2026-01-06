@@ -1,8 +1,5 @@
-package com.lib.spring.login;
-
-
-import com.lib.spring.*;
-import com.lib.spring.users.UserRequest;
+package com.lib.spring.api.login;
+import com.lib.spring.api.users.UserRequest;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

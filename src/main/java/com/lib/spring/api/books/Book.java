@@ -1,4 +1,4 @@
-package com.lib.spring.books;
+package com.lib.spring.api.books;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

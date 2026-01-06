@@ -1,4 +1,4 @@
-package com.lib.spring.users;
+package com.lib.spring.api.users;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

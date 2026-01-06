@@ -1,4 +1,4 @@
-package com.lib.spring.users;
+package com.lib.spring.api.users;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

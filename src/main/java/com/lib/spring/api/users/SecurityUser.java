@@ -1,4 +1,4 @@
-package com.lib.spring.users;
+package com.lib.spring.api.users;
 
 import java.util.Collection;
 import java.util.List;
