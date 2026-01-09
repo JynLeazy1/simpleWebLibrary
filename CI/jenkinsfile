@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    stages {
+        stage('Test') {
+            steps {
+               echo 'Testing'
+	       	   //sh 'mvn package'
+	    }
+        }
+		stage('Linting') {
+		    steps {
+				echo 'Linting'
+				//sh 'mvn checkstyle:checkstyle'
+		    }
+		}	
+		stage('Build') {
+    	    steps {
+		        echo 'Building'
+				//sh 'mvn -B -DskipTests clean install'
+    	    }
+    	}
+		stage('Scanning') {
+		    steps {
+				echo 'Scanning'
+		    }
+		}
+		stage('Push') {
+		    steps {
+				echo 'Pushing'
+		    }
+		}
+    }
+}
