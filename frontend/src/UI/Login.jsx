@@ -9,7 +9,7 @@ function Login() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>welcome</h2>
+      <h2 className="text-3xl font-bold text-red-600">welcome</h2>
       <input placeholder="User" />
       <br></br>
       <input placeholder="Password" type="password" />
