@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <header>
+    <header className="bg-lime-500">
       <form>
         <Link to="/">Login</Link>
         <Link to="/home">Home</Link>
