@@ -1,10 +1,11 @@
 package com.lib.spring;
 
+import com.lib.spring.api.users.*;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.lib.spring.users.AppUserService;
 
 @Configuration
 public class DataInitializer {

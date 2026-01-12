@@ -1,10 +1,10 @@
 package com.lib.spring;
 
+import com.lib.spring.api.books.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.lib.spring.books.BookRepository;
 
 @Controller
 public class BookViewController {
