@@ -1,5 +1,5 @@
 function Footer() {
-  return <footer>Footer space</footer>;
+  return <footer className="bg-black text-light">Footer space</footer>;
 }
 
 export default Footer;

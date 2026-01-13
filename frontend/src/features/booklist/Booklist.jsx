@@ -8,7 +8,7 @@ function Booklist() {
   }
 
   return (
-    <ul>
+    <ul role="list" className="p-4 space-y-1">
       {books.map((book) => (
         <li key={book.id}>
           <Link to={`/bookDetails/${book.id}`}>{book.title}</Link>
