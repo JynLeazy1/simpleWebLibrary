@@ -1,10 +1,9 @@
 package com.lib.spring.api.users;
+import com.lib.spring.api.login.LoginRequest;
 
-public class UserRequest {
+public class UserRequest extends LoginRequest {
 	
 	
-	private String username;
-	private String password;
 	private String role;
 	private String email;
 	
@@ -15,32 +14,15 @@ public class UserRequest {
 	
 	
 	public UserRequest(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
+		super(username, password);
 	}	
-	
 
 	public UserRequest(String username, String password, String role, String email) {
-		super();
-		this.username = username;
-		this.password = password;
+		super(username, password);
 		this.role = role;
 		this.email = email;
 	}
 	
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
 	public String getRole() {
 		return role;
 	}
@@ -57,7 +39,7 @@ public class UserRequest {
 
 	@Override
 	public String toString() {
-		return "UserRequest [username=" + username + ", password=" + password + ", role=" + role + ", email=" + email
+		return "UserRequest [username=" + username + ", role=" + role + ", email=" + email
 				+ "]";
 	}
 	
