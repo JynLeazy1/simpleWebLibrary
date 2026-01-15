@@ -2,9 +2,9 @@ pipeline {
     agent any
 
 	tools {
-		maven 'Maven-3.9.12' 
-		jdk 'OpenJDK-21.0.9'
+		maven 'mvn'
 	}
+
     stages {
         stage('Test') {
             steps {
@@ -14,7 +14,9 @@ pipeline {
         }
 		stage('Linting') {
 		    steps {
+				sh '''
 				echo 'Linting'
+				'''
 				//sh 'mvn checkstyle:checkstyle'
 		    }
 		}	
