@@ -39,7 +39,7 @@ public class UserRequest extends LoginRequest {
 
 	@Override
 	public String toString() {
-		return "UserRequest [username=" + username + ", role=" + role + ", email=" + email
+		return "UserRequest [username=" + getUsername() + ", role=" + role + ", email=" + email
 				+ "]";
 	}
 	

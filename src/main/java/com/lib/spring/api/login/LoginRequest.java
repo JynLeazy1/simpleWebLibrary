@@ -33,6 +33,6 @@ public class LoginRequest {
 
     @Override
     public String toString() {
-        return "LoginRequest [username=" + username  "]";
+        return "LoginRequest [username=" + username + "]" ;
     }
 }

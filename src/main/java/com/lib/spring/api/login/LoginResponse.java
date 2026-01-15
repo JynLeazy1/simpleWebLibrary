@@ -1,3 +1,5 @@
+package com.lib.spring.api.login;
+
 public class LoginResponse {
     private String token;
 
