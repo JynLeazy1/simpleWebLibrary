@@ -1,14 +1,11 @@
-import { useRouteLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 function Booklist() {
-  const books = useRouteLoaderData("books") ?? [];
-  if (!books) {
-    return <p>Cargando libros...</p>;
-  }
+  const books = useLoaderData() ?? [];
 
   return (
-    <ul role="list" className="p-4 space-y-1">
+    <ul role="list" className="space-y-1 p-4">
       {books.map((book) => (
         <li key={book.id}>
           <Link to={`/bookDetails/${book.id}`}>{book.title}</Link>

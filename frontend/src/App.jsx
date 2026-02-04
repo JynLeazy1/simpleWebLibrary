@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { loader as booksLoader } from "./services/booksLoader";
+import { booksLoader } from "./services/booksLoader";
 import Home from "./UI/Home";
 import Adminbooks, {
   action as createBookAction,
@@ -16,7 +16,6 @@ const router = createBrowserRouter([
   },
   {
     element: <AppLayout />,
-    loader: booksLoader,
     id: "books",
     children: [
       {
@@ -31,6 +30,7 @@ const router = createBrowserRouter([
       {
         path: "/bookList",
         element: <Booklist />,
+        loader: booksLoader,
       },
       {
         path: "/bookDetails/:bookId",
