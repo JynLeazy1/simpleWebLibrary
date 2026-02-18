@@ -26,3 +26,13 @@ export async function postBook(book) {
 
   return await res.json();
 }
+
+export async function getBookById(id) {
+  const res = await fetch(`${API_URL}/book/${id}`);
+
+  if (!res.ok) {
+    throw new Error("Book not found");
+  }
+
+  return res.json();
+}

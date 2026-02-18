@@ -1,14 +1,10 @@
-import { useParams, useRouteLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 
 function BookDetails() {
-  const { bookId } = useParams();
-  const books = useRouteLoaderData("books") ?? [];
-  const book = books.find((b) => b.id === Number(bookId));
-  if (!book) {
-    return <p>Libo no encontrado</p>;
-  }
+  const book = useLoaderData();
+
   return (
-    <div>
+    <div className="gap-4">
       <h1>{book.title}</h1>
       <p>
         <strong>Autor:</strong> {book.author}
@@ -16,7 +12,7 @@ function BookDetails() {
       <p>
         <strong>Precio:</strong> ${book.price}
       </p>
-      <img src={book.imageUrl} alt={book.title} />
+      <img src={book.imageUrl} alt={book.title} className="h-60" />
     </div>
   );
 }
