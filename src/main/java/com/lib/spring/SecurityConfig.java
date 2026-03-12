@@ -8,18 +8,35 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+<<<<<<< frontendDisplayBook
 import java.util.List;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+=======
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.lib.spring.auth.AuthEntryPointJwt;
+import com.lib.spring.auth.JwtAuthenticationFilter;
+import com.lib.spring.auth.JwtService;
+>>>>>>> main
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+	private final JwtService jwtService;
+	private final AuthEntryPointJwt authEntryPointJwt;
+
+	public SecurityConfig(JwtService jwtService, AuthEntryPointJwt authEntryPointJwt) {
+		this.jwtService = jwtService;
+		this.authEntryPointJwt = authEntryPointJwt;
+	}
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -31,6 +48,8 @@ public class SecurityConfig {
         return http
 						.cors(Customizer.withDefaults())
         		.csrf(csrf -> csrf.disable())
+        		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        		.exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPointJwt))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/user").permitAll()
@@ -46,23 +65,13 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/error").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
-                        .defaultSuccessUrl("/books", true)
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
-                )
+                .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
+                .formLogin(form -> form.disable())                                 
+ 				.logout(logout -> logout.disable())
                 .build();
     }
-	
 
-		@Bean
-		public AuthenticationManager authenticationManager(
-		        AuthenticationConfiguration config) throws Exception {
-		    return config.getAuthenticationManager();
-		}
-
+<<<<<<< frontendDisplayBook
 		@Bean
 public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
@@ -77,5 +86,12 @@ public CorsConfigurationSource corsConfigurationSource() {
 }
 
 
+=======
+	@Bean
+	public AuthenticationManager authenticationManager(
+	        AuthenticationConfiguration config) throws Exception {
+	    return config.getAuthenticationManager();
+	}
+>>>>>>> main
 
 }
