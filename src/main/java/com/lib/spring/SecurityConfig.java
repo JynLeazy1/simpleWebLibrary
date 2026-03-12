@@ -55,13 +55,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
-                .formLogin(form -> form
-                        .defaultSuccessUrl("/books", true)
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/login?logout")
-                )
+                .formLogin(form -> form.disable())                                 
+ 				.logout(logout -> logout.disable())
                 .build();
     }
 
