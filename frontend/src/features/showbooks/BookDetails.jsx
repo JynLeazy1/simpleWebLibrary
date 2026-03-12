@@ -4,7 +4,7 @@ function BookDetails() {
   const book = useLoaderData();
 
   return (
-    <div className="gap-4">
+    <div className="gap- px-5 py-3">
       <h1>{book.title}</h1>
       <p>
         <strong>Autor:</strong> {book.author}

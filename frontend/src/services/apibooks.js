@@ -36,3 +36,5 @@ export async function getBookById(id) {
 
   return res.json();
 }
+
+export { API_URL };
