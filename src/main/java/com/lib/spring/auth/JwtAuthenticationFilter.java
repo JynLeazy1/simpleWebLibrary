@@ -75,8 +75,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		}
 	}
 
-	// Custom exception example (checked exception, inherits from Exception)
-	class MyCustomJwtMalformedException extends Exception {
+	class MyCustomJwtMalformedException extends RuntimeException {
 		private static final long serialVersionUID = 7226007910634769229L;
 
 		public MyCustomJwtMalformedException(String message, Throwable cause) {

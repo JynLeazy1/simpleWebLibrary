@@ -1,6 +1,7 @@
 package com.lib.spring.auth;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 
 import javax.crypto.SecretKey;
@@ -17,6 +18,7 @@ import io.jsonwebtoken.Claims;
 public class JwtService {
 
     private final SecretKey key;
+    private final long expiration;
 
     public JwtService(
             @Value("${jwt.secret}") String secret,
@@ -25,6 +27,7 @@ public class JwtService {
         this.key = Keys.hmacShaKeyFor(
             secret.getBytes(StandardCharsets.UTF_8)
         );
+        this.expiration = expiration;
     }
 
     public String generateToken(Authentication auth) {
@@ -37,17 +40,19 @@ public class JwtService {
         return Jwts.builder()
             .subject(auth.getName())
             .claim("roles", roles)
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + expiration))
             .signWith(key, Jwts.SIG.HS256)
             .compact();
     }
 
     public Claims parseToken(String token) {
-    	
+
         return Jwts.parser()
             .verifyWith(key)
             .build()
             .parseSignedClaims(token)
             .getPayload();
-   
+
     }
 }
