@@ -7,7 +7,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
@@ -18,7 +17,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.ExpiredJwtException;
 
-@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 	private final JwtService jwtService;

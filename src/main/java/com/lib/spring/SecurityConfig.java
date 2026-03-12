@@ -15,16 +15,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.lib.spring.auth.AuthEntryPointJwt;
 import com.lib.spring.auth.JwtAuthenticationFilter;
+import com.lib.spring.auth.JwtService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-	private final JwtAuthenticationFilter jwtAuthenticationFilter;
+	private final JwtService jwtService;
 	private final AuthEntryPointJwt authEntryPointJwt;
 
-	public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, AuthEntryPointJwt authEntryPointJwt) {
-		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+	public SecurityConfig(JwtService jwtService, AuthEntryPointJwt authEntryPointJwt) {
+		this.jwtService = jwtService;
 		this.authEntryPointJwt = authEntryPointJwt;
 	}
 
@@ -53,7 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/error").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form
                         .defaultSuccessUrl("/books", true)
                         .permitAll()
