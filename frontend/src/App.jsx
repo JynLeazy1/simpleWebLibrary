@@ -1,32 +1,36 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { loader as booksLoader } from "./services/booksLoader";
 import Home from "./UI/Home";
-import Adminbooks from "./features/adminbooks/Adminbooks";
+import Adminbooks, {
+  action as createBookAction,
+} from "./features/adminbooks/Adminbooks";
 import Booklist from "./features/booklist/Booklist";
 import BookDetails from "./features/showbooks/BookDetails";
 import AppLayout from "./UI/AppLayout";
-import { loader as booksLoader } from "./services/booksLoader";
+import Login from "./UI/Login";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Login />,
+  },
   {
     element: <AppLayout />,
     loader: booksLoader,
     id: "books",
     children: [
       {
-        path: "/",
+        path: "/home",
         element: <Home />,
       },
       {
         path: "/adminBooks",
         element: <Adminbooks />,
+        action: createBookAction,
       },
       {
         path: "/bookList",
         element: <Booklist />,
-      },
-      {
-        path: "/bookDetails",
-        element: <BookDetails />,
       },
       {
         path: "/bookDetails/:bookId",
