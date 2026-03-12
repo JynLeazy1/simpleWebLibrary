@@ -1,5 +1,10 @@
 pipeline {
     agent any
+
+	tools {
+		maven 'mvn'
+	}
+
     stages {
         stage('Test') {
             steps {
@@ -9,7 +14,9 @@ pipeline {
         }
 		stage('Linting') {
 		    steps {
+				sh '''
 				echo 'Linting'
+				'''
 				//sh 'mvn checkstyle:checkstyle'
 		    }
 		}	
