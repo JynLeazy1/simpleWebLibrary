@@ -35,7 +35,9 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     }
 
     private String escapeJson(String s) {
-        if (s == null) return "";
+        if (s == null) {
+            return "";
+        }
         return s.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }

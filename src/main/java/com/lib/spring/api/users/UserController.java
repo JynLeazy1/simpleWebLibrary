@@ -21,7 +21,7 @@ public class UserController {
 	@Autowired
 	AppUserRepository userRepository;
 	
-	@PostMapping("/api/user")
+	@PostMapping("/api/users")
 	public ResponseEntity<?> createUser(@RequestBody UserRequest request) {
 		userService.createUser(
 				request.getUsername(),
@@ -34,7 +34,7 @@ public class UserController {
 	
 
 	@GetMapping("/api/users")
-	public List<AppUser> retreiveAllUsers(){
+	public List<AppUser> retreiveAllUsers() {
 		return userRepository.findAll();
 	}
 

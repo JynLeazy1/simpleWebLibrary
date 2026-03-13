@@ -1,8 +1,10 @@
 package com.lib.spring.api.books;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,22 +35,26 @@ public class BookController {
 	}
 	
 	@GetMapping
-	public List<Book> retrieveAllBooks(
+	public Page<Book> retrieveAllBooks(
 			@RequestParam(required = false) String title,
 			@RequestParam(required = false) String author,
 			@RequestParam(required = false) BigDecimal minPrice,
-			@RequestParam(required = false) BigDecimal maxPrice) {
+			@RequestParam(required = false) BigDecimal maxPrice,
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
+
+		Pageable pageable = PageRequest.of(page, size);
 
 		if (title != null) {
-			return bookRepository.findByTitleContaining(title);
+			return bookRepository.findByTitleContaining(title, pageable);
 		}
 		if (author != null) {
-			return bookRepository.findByAuthor(author);
+			return bookRepository.findByAuthorContaining(author, pageable);
 		}
 		if (minPrice != null && maxPrice != null) {
-			return bookRepository.findByPriceBetween(minPrice, maxPrice);
+			return bookRepository.findByPriceBetween(minPrice, maxPrice, pageable);
 		}
-		return bookRepository.findAll();
+		return bookRepository.findAll(pageable);
 	}
 	
 	@GetMapping("/{id}")
