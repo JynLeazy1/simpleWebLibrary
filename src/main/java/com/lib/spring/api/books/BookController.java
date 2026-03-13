@@ -1,5 +1,6 @@
 package com.lib.spring.api.books;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,7 +33,21 @@ public class BookController {
 	}
 	
 	@GetMapping
-	public List<Book> retrieveAllBooks(){
+	public List<Book> retrieveAllBooks(
+			@RequestParam(required = false) String title,
+			@RequestParam(required = false) String author,
+			@RequestParam(required = false) BigDecimal minPrice,
+			@RequestParam(required = false) BigDecimal maxPrice) {
+
+		if (title != null) {
+			return bookRepository.findByTitleContaining(title);
+		}
+		if (author != null) {
+			return bookRepository.findByAuthor(author);
+		}
+		if (minPrice != null && maxPrice != null) {
+			return bookRepository.findByPriceBetween(minPrice, maxPrice);
+		}
 		return bookRepository.findAll();
 	}
 	

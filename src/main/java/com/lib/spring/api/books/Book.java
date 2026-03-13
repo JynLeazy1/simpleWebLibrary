@@ -1,5 +1,7 @@
 package com.lib.spring.api.books;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,11 +12,11 @@ public class Book {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	
 	private String title;
 	private String author;
-	private double price;
+	private BigDecimal price;
 	private String imageUrl;
 	
 	
@@ -23,7 +25,7 @@ public class Book {
 	public Book() {
 		super();
 	}
-	public Book(int id) {
+	public Book(Integer id) {
 		super();
 		this.id = id;
 	}
@@ -32,10 +34,10 @@ public class Book {
 		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", price=" + price + ", imageUrl="
 				+ imageUrl + "]";
 	}
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getTitle() {
@@ -50,10 +52,10 @@ public class Book {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public String getImageUrl() {
