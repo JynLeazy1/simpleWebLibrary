@@ -2,9 +2,7 @@ package com.lib.spring.api.books;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,36 +10,39 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@RequestMapping("/api/books")
 public class BookController {
 	
-	@Autowired
-	BookRepository bookRepository;
-	
-	@PostMapping("/api/book")
-	public Book createBook(@RequestBody Book book) {
-		Book savedBook = bookRepository.save(book);
-		return savedBook;
-		
+	private final BookRepository bookRepository;
+
+	public BookController(BookRepository bookRepository) {
+		this.bookRepository = bookRepository;
 	}
 	
-	@GetMapping("/api/books")
-	public List<Book> retreiveAllBooks(){
+	@PostMapping
+	public ResponseEntity<Book> createBook(@RequestBody Book book) {
+		Book savedBook = bookRepository.save(book);
+		return ResponseEntity.status(201).body(savedBook);
+	}
+	
+	@GetMapping
+	public List<Book> retrieveAllBooks(){
 		return bookRepository.findAll();
 	}
 	
-	@GetMapping("/api/book/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<Book> getBook(@PathVariable int id) {
 		return bookRepository.findById(id)
 				.map(ResponseEntity::ok)
 				.orElse(ResponseEntity.notFound().build());
 	}
 	
-	@PutMapping("/api/book/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book book) {
 		 return bookRepository.findById(id)
 			        .map(existing -> {
@@ -54,8 +55,11 @@ public class BookController {
 			        .orElse(ResponseEntity.notFound().build());
 	}
 	
-	@DeleteMapping("/api/book/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteBook(@PathVariable int id) {
+		if (!bookRepository.existsById(id)) {
+			return ResponseEntity.notFound().build();
+		}
 		bookRepository.deleteById(id);
 		return ResponseEntity.ok().build();
 	}
