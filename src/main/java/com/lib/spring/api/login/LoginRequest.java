@@ -6,11 +6,9 @@ public class LoginRequest {
     private String password;
 
     public LoginRequest() {
-        super();
     }
 
     public LoginRequest(String username, String password) {
-        super();
         this.username = username;
         this.password = password;
     }
@@ -29,10 +27,5 @@ public class LoginRequest {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public String toString() {
-        return "LoginRequest [username=" + username + "]";
     }
 }
