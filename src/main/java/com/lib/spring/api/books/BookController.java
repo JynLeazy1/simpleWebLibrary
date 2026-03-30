@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class BookController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Book> createBook(@RequestBody Book book) {
+	public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
 		Book savedBook = bookRepository.save(book);
 		return ResponseEntity.status(201).body(savedBook);
 	}
@@ -65,7 +66,7 @@ public class BookController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book book) {
+	public ResponseEntity<Book> updateBook(@PathVariable int id, @Valid @RequestBody Book book) {
 		 return bookRepository.findById(id)
 			        .map(existing -> {
 			            existing.setTitle(book.getTitle());
