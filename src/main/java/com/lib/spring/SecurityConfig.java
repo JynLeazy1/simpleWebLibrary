@@ -50,6 +50,8 @@ public class SecurityConfig {
                 		.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                 		.requestMatchers(HttpMethod.GET, "/api/users").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                		.requestMatchers(HttpMethod.GET, "/api/uploads/image/**").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/api/uploads/image").authenticated()
                 		.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 		.requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
