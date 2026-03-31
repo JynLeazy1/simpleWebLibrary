@@ -1,27 +1,24 @@
 package com.lib.spring.api.users;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("/api/users")
 public class UserController {
 	
 	private final AppUserService userService;
-	
-	public UserController(AppUserService userService) {
+	//private final AppUserRepository userRepository;
+
+	public UserController(AppUserService userService/*, AppUserRepository userRepository*/) {
 		this.userService = userService;
+		//this.userRepository = userRepository;
 	}
 	
-	@Autowired
-	AppUserRepository userRepository;
-	
-	@PostMapping("/api/user")
+	@PostMapping
 	public ResponseEntity<?> createUser(@RequestBody UserRequest request) {
 		userService.createUser(
 				request.getUsername(),
@@ -33,9 +30,9 @@ public class UserController {
 	}
 	
 
-	@GetMapping("/api/users")
-	public List<AppUser> retreiveAllUsers(){
-		return userRepository.findAll();
-	}
+	//@GetMapping
+	//public List<AppUser> retreiveAllUsers() {
+	//	return userRepository.findAll();
+	//}
 
 }

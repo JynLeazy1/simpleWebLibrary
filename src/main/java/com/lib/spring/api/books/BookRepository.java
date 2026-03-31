@@ -1,16 +1,17 @@
 package com.lib.spring.api.books;
 
 import java.math.BigDecimal;
-import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
-	List<Book> findByAuthor(String author);
+	Page<Book> findByAuthorContaining(String author, Pageable pageable);
 
-	List<Book> findByTitleContaining(String keyword);
+	Page<Book> findByTitleContaining(String keyword, Pageable pageable);
 
-	List<Book> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
+	Page<Book> findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice, Pageable pageable);
 
 }
