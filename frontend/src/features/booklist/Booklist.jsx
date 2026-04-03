@@ -4,10 +4,11 @@ import Bookitem from "./Bookitem";
 
 function Booklist() {
   const books = useLoaderData();
+  console.log({ books });
 
   return (
     <ul role="list" className="space-y-1 divide-y divide-stone-200 p-4 px-2">
-      {books.map((book) => (
+      {books.content.map((book) => (
         <Bookitem book={book} key={book.id}></Bookitem>
       ))}
     </ul>
