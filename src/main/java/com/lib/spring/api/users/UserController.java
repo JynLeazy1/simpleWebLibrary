@@ -1,5 +1,6 @@
 package com.lib.spring.api.users;
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> createUser(@RequestBody UserRequest request) {
+	public ResponseEntity<?> createUser(@Valid @RequestBody UserRequest request) {
 		userService.createUser(
 				request.getUsername(),
 				request.getPassword(),

@@ -1,5 +1,6 @@
 package com.lib.spring.api.users;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 public class UserRequest {
@@ -8,7 +9,8 @@ public class UserRequest {
 	private String username;
 	@NotBlank
 	private String password;
-	private String role;
+	private Role role;
+	@Email
 	private String email;
 
 	public UserRequest() {
@@ -19,7 +21,7 @@ public class UserRequest {
 		this.password = password;
 	}
 
-	public UserRequest(String username, String password, String role, String email) {
+	public UserRequest(String username, String password, Role role, String email) {
 		this.username = username;
 		this.password = password;
 		this.role = role;
@@ -42,11 +44,11 @@ public class UserRequest {
 		this.password = password;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
