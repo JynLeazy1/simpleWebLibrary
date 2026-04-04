@@ -19,18 +19,18 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 import com.lib.spring.auth.AuthEntryPointJwt;
-import com.lib.spring.auth.JwtAuthenticationFilter;
-import com.lib.spring.auth.JwtService;
+import com.lib.spring.auth.AccessTokenAuthenticationFilter;
+import com.lib.spring.auth.AccessTokenService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-	private final JwtService jwtService;
+	private final AccessTokenService accessTokenService;
 	private final AuthEntryPointJwt authEntryPointJwt;
 
-	public SecurityConfig(JwtService jwtService, AuthEntryPointJwt authEntryPointJwt) {
-		this.jwtService = jwtService;
+	public SecurityConfig(AccessTokenService accessTokenService, AuthEntryPointJwt authEntryPointJwt) {
+		this.accessTokenService = accessTokenService;
 		this.authEntryPointJwt = authEntryPointJwt;
 	}
 
@@ -49,14 +49,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                 		.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                 		.requestMatchers(HttpMethod.GET, "/api/users").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/api/auth/logout").authenticated()
                 		.requestMatchers(HttpMethod.GET, "/api/uploads/image/**").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/uploads/image").authenticated()
                 		.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 		.requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new AccessTokenAuthenticationFilter(accessTokenService), UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())                                 
  				.logout(logout -> logout.disable())
                 .build();

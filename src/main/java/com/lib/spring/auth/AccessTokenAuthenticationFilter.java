@@ -16,12 +16,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.ExpiredJwtException;
 
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class AccessTokenAuthenticationFilter extends OncePerRequestFilter {
 
-	private final JwtService jwtService;
+	private final AccessTokenService accessTokenService;
 
-	public JwtAuthenticationFilter(JwtService jwtService) {
-		this.jwtService = jwtService;
+	public AccessTokenAuthenticationFilter(AccessTokenService accessTokenService) {
+		this.accessTokenService = accessTokenService;
 	}
 
 	@Override
@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String token = header.substring(7);
 
 		try {
-			Claims claims = jwtService.parseToken(token);
+			Claims claims = accessTokenService.parseToken(token);
 
 			String username = claims.getSubject();
 
