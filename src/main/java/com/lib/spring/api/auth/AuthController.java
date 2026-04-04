@@ -1,4 +1,4 @@
-package com.lib.spring.api.login;
+package com.lib.spring.api.auth;
 
 import com.lib.spring.auth.AccessTokenService;
 import com.lib.spring.auth.RefreshToken;

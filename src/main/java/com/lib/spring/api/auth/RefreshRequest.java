@@ -1,4 +1,4 @@
-package com.lib.spring.api.login;
+package com.lib.spring.api.auth;
 
 public class RefreshRequest {
 
