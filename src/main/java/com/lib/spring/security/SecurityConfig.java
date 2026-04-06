@@ -1,4 +1,4 @@
-package com.lib.spring;
+package com.lib.spring.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,8 +59,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(new AccessTokenAuthenticationFilter(accessTokenService), UsernamePasswordAuthenticationFilter.class)
-                .formLogin(form -> form.disable())                                 
- 				.logout(logout -> logout.disable())
+                .formLogin(form -> form.disable())
+                .logout(logout -> logout.disable())
                 .build();
     }
 
@@ -82,5 +82,4 @@ public class SecurityConfig {
 		source.registerCorsConfiguration("/**", config);
 		return source;
 	}
-
 }
