@@ -1,4 +1,4 @@
-package com.lib.spring;
+package com.lib.spring.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,21 +20,31 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 =======
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 import com.lib.spring.auth.AuthEntryPointJwt;
+<<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
 import com.lib.spring.auth.JwtAuthenticationFilter;
 import com.lib.spring.auth.JwtService;
 >>>>>>> main
+=======
+import com.lib.spring.auth.AccessTokenAuthenticationFilter;
+import com.lib.spring.auth.AccessTokenService;
+>>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-	private final JwtService jwtService;
+	private final AccessTokenService accessTokenService;
 	private final AuthEntryPointJwt authEntryPointJwt;
 
-	public SecurityConfig(JwtService jwtService, AuthEntryPointJwt authEntryPointJwt) {
-		this.jwtService = jwtService;
+	public SecurityConfig(AccessTokenService accessTokenService, AuthEntryPointJwt authEntryPointJwt) {
+		this.accessTokenService = accessTokenService;
 		this.authEntryPointJwt = authEntryPointJwt;
 	}
 
@@ -46,28 +56,34 @@ public class SecurityConfig {
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+<<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
 						.cors(Customizer.withDefaults())
+=======
+        		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+>>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
         		.csrf(csrf -> csrf.disable())
         		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         		.exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPointJwt))
                 .authorizeHttpRequests(auth -> auth
+<<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/user").permitAll()
+=======
+                		.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+>>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
                 		.requestMatchers(HttpMethod.GET, "/api/users").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/api/login").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/api/book").permitAll()
-                		.requestMatchers(HttpMethod.GET, "/api/book/*").permitAll()
-                		.requestMatchers(HttpMethod.PUT, "/api/book/*").permitAll()
-                		.requestMatchers(HttpMethod.DELETE, "/api/book/*").permitAll()
-                		.requestMatchers(HttpMethod.GET, "/api/books").permitAll()
-                		.requestMatchers(HttpMethod.GET, "/api/uploads/image/*").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/api/uploads/image").permitAll()
-                        .requestMatchers("/login", "/error").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/api/auth/logout").authenticated()
+                		.requestMatchers(HttpMethod.GET, "/api/uploads/image/**").permitAll()
+                		.requestMatchers(HttpMethod.POST, "/api/uploads/image").authenticated()
+                		.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                		.requestMatchers("/error").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
-                .formLogin(form -> form.disable())                                 
- 				.logout(logout -> logout.disable())
+                .addFilterBefore(new AccessTokenAuthenticationFilter(accessTokenService), UsernamePasswordAuthenticationFilter.class)
+                .formLogin(form -> form.disable())
+                .logout(logout -> logout.disable())
                 .build();
     }
 
@@ -94,4 +110,16 @@ public CorsConfigurationSource corsConfigurationSource() {
 	}
 >>>>>>> main
 
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowedOrigins(List.of("http://localhost:5173", "http://192.168.1.13:5173"));
+		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		config.setAllowedHeaders(List.of("*"));
+		config.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", config);
+		return source;
+	}
 }

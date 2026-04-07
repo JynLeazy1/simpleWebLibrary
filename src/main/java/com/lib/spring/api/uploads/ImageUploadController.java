@@ -1,11 +1,11 @@
 package com.lib.spring.api.uploads;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -65,11 +65,13 @@ public class ImageUploadController {
 			Files.createDirectories(uploadPath);
 		}
 
-		String fileName = file.getOriginalFilename();
+		String original = file.getOriginalFilename();
+		String extension = original.substring(original.lastIndexOf("."));
+		String fileName = UUID.randomUUID().toString() + extension;
 		Path filePath = uploadPath.resolve(fileName);
 		Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-		return filePath.toString();
+		return fileName;
 	}
 
 	@Operation(summary = "Get image", description = "Retrieve an uploaded image by filename", parameters = {

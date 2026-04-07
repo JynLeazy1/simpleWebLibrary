@@ -15,7 +15,7 @@ public class AppUserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void createUser(String username, String rawPassword, String role, String email) {
+    public void createUser(String username, String rawPassword, Role role, String email) {
     	
     	if (repository.existsByUsername(username)) {
             throw new IllegalStateException("User already exists");
@@ -24,7 +24,7 @@ public class AppUserService {
         AppUser user = new AppUser();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(rawPassword));
-        user.setRole(role);
+        user.setRole(role != null ? role : Role.ROLE_USER);
         user.setEmail(email);
         repository.save(user);
     }

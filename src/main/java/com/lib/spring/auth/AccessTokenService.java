@@ -9,18 +9,19 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Claims;
 
 @Service
-public class JwtService {
+public class AccessTokenService {
 
     private final SecretKey key;
     private final long expiration;
 
-    public JwtService(
+    public AccessTokenService(
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.expiration}") long expiration) {
 
@@ -39,6 +40,21 @@ public class JwtService {
 
         return Jwts.builder()
             .subject(auth.getName())
+            .claim("roles", roles)
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + expiration))
+            .signWith(key, Jwts.SIG.HS256)
+            .compact();
+    }
+
+    public String generateToken(UserDetails userDetails) {
+        List<String> roles = userDetails.getAuthorities()
+            .stream()
+            .map(GrantedAuthority::getAuthority)
+            .toList();
+
+        return Jwts.builder()
+            .subject(userDetails.getUsername())
             .claim("roles", roles)
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + expiration))

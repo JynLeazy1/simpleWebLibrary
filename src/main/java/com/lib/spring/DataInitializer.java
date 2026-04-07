@@ -1,6 +1,7 @@
 package com.lib.spring;
 
-import com.lib.spring.api.users.*;
+import com.lib.spring.api.users.AppUserService;
+import com.lib.spring.api.users.Role;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ public class DataInitializer {
                 userService.createUser(
                         "admin",
                         "admin123",
-                        "ROLE_ADMIN",
+                        Role.ROLE_ADMIN,
                         "admin@admin.com"
                 );
             }

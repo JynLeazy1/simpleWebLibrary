@@ -1,20 +1,23 @@
 package com.lib.spring.api.users;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class AppUser {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	private String username;
 	private String password;
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	private String email;
 	
 	
@@ -24,7 +27,7 @@ public class AppUser {
 		super();
 	}
 
-	public AppUser(long id, String username, String password, String role, String email) {
+	public AppUser(long id, String username, String password, Role role, String email) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -51,10 +54,10 @@ public class AppUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 	public String getEmail() {

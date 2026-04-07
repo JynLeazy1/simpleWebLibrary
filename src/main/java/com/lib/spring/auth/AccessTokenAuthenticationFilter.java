@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -17,12 +16,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.ExpiredJwtException;
 
-public class JwtAuthenticationFilter extends OncePerRequestFilter {
+public class AccessTokenAuthenticationFilter extends OncePerRequestFilter {
 
-	private final JwtService jwtService;
+	private final AccessTokenService accessTokenService;
 
-	public JwtAuthenticationFilter(JwtService jwtService) {
-		this.jwtService = jwtService;
+	public AccessTokenAuthenticationFilter(AccessTokenService accessTokenService) {
+		this.accessTokenService = accessTokenService;
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		String token = header.substring(7);
 
 		try {
-			Claims claims = jwtService.parseToken(token);
+			Claims claims = accessTokenService.parseToken(token);
 
 			String username = claims.getSubject();
 
