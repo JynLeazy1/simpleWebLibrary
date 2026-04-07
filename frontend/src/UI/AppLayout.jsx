@@ -6,9 +6,7 @@ import { useEffect } from "react";
 
 function AppLayout() {
   const navigation = useNavigation();
-  useEffect(() => {
-    console.log("NAV STATE:", navigation.state);
-  }, [navigation.state]);
+  useEffect(() => {}, [navigation.state]);
 
   const isLoading = navigation.state === "loading";
   return (

@@ -1,12 +1,17 @@
-const API_URL = "http://localhost:8080/api";
+/* const API_URL = "http://localhost:8080/api"; */
+const API_URL = "http://192.168.1.15:8080/api";
+const token = localStorage.getItem("token");
 
 export async function getBooks() {
-  const res = await fetch(`${API_URL}/books`, { headers: { Accept: "*/*" } });
+  const res = await fetch(`${API_URL}/books`, {
+    headers: { Accept: "*/*", Authorization: `Bearer ${token}` },
+  });
 
   // fetch won't throw error on 400 errors (e.g. when URL is wrong), so we need to do it manually. This will then go into the catch block, where the message is set
   if (!res.ok) throw Error("Failed getting books");
 
   const books = await res.json();
+  console.log({ books });
   return books;
 }
 

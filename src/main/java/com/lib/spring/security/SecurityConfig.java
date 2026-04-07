@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,13 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-<<<<<<< frontendDisplayBook
-import java.util.List;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-=======
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -30,11 +22,14 @@ import com.lib.spring.auth.AuthEntryPointJwt;
 <<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
 import com.lib.spring.auth.JwtAuthenticationFilter;
 import com.lib.spring.auth.JwtService;
+<<<<<<< HEAD:src/main/java/com/lib/spring/security/SecurityConfig.java
 >>>>>>> main
 =======
 import com.lib.spring.auth.AccessTokenAuthenticationFilter;
 import com.lib.spring.auth.AccessTokenService;
 >>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
+=======
+>>>>>>> frontend:src/main/java/com/lib/spring/SecurityConfig.java
 
 @Configuration
 @EnableWebSecurity
@@ -56,21 +51,29 @@ public class SecurityConfig {
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+<<<<<<< HEAD:src/main/java/com/lib/spring/security/SecurityConfig.java
 <<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
 						.cors(Customizer.withDefaults())
 =======
         		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 >>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
+=======
+        		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
+>>>>>>> frontend:src/main/java/com/lib/spring/SecurityConfig.java
         		.csrf(csrf -> csrf.disable())
         		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         		.exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPointJwt))
                 .authorizeHttpRequests(auth -> auth
+<<<<<<< HEAD:src/main/java/com/lib/spring/security/SecurityConfig.java
 <<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/user").permitAll()
 =======
                 		.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
 >>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
+=======
+                		.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
+>>>>>>> frontend:src/main/java/com/lib/spring/SecurityConfig.java
                 		.requestMatchers(HttpMethod.GET, "/api/users").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
@@ -87,28 +90,11 @@ public class SecurityConfig {
                 .build();
     }
 
-<<<<<<< frontendDisplayBook
-		@Bean
-public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(List.of("http://localhost:5174"));
-    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-    configuration.setAllowedHeaders(List.of("*"));
-    configuration.setAllowCredentials(true);
-
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-}
-
-
-=======
 	@Bean
 	public AuthenticationManager authenticationManager(
 	        AuthenticationConfiguration config) throws Exception {
 	    return config.getAuthenticationManager();
 	}
->>>>>>> main
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
