@@ -1,13 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { loader as booksLoader } from "./services/booksLoader";
+import { booksLoader, bookDetailsLoader } from "./services/booksLoader";
 import Home from "./UI/Home";
 import Adminbooks, {
   action as createBookAction,
 } from "./features/adminbooks/Adminbooks";
+import Login from "./UI/Login";
+import AppLayout from "./UI/AppLayout";
+import Error from "./UI/Error";
 import Booklist from "./features/booklist/Booklist";
 import BookDetails from "./features/showbooks/BookDetails";
-import AppLayout from "./UI/AppLayout";
-import Login from "./UI/Login";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +17,7 @@ const router = createBrowserRouter([
   },
   {
     element: <AppLayout />,
-    loader: booksLoader,
-    id: "books",
+    errorElement: <Error />,
     children: [
       {
         path: "/home",
@@ -27,14 +27,19 @@ const router = createBrowserRouter([
         path: "/adminBooks",
         element: <Adminbooks />,
         action: createBookAction,
+        errorElement: <Error />,
       },
       {
         path: "/bookList",
         element: <Booklist />,
+        loader: booksLoader,
+        errorElement: <Error />,
       },
       {
         path: "/bookDetails/:bookId",
         element: <BookDetails />,
+        loader: bookDetailsLoader,
+        errorElement: <Error />,
       },
     ],
   },
