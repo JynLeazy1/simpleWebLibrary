@@ -19,17 +19,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 import com.lib.spring.auth.AuthEntryPointJwt;
-<<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
-import com.lib.spring.auth.JwtAuthenticationFilter;
-import com.lib.spring.auth.JwtService;
-<<<<<<< HEAD:src/main/java/com/lib/spring/security/SecurityConfig.java
->>>>>>> main
-=======
 import com.lib.spring.auth.AccessTokenAuthenticationFilter;
 import com.lib.spring.auth.AccessTokenService;
->>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
-=======
->>>>>>> frontend:src/main/java/com/lib/spring/SecurityConfig.java
+
 
 @Configuration
 @EnableWebSecurity
@@ -51,30 +43,12 @@ public class SecurityConfig {
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
-<<<<<<< HEAD:src/main/java/com/lib/spring/security/SecurityConfig.java
-<<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
-						.cors(Customizer.withDefaults())
-=======
         		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
->>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
-=======
-        		.cors(cors -> cors.configurationSource(corsConfigurationSource()))
->>>>>>> frontend:src/main/java/com/lib/spring/SecurityConfig.java
         		.csrf(csrf -> csrf.disable())
         		.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         		.exceptionHandling(ex -> ex.authenticationEntryPoint(authEntryPointJwt))
                 .authorizeHttpRequests(auth -> auth
-<<<<<<< HEAD:src/main/java/com/lib/spring/security/SecurityConfig.java
-<<<<<<< HEAD:src/main/java/com/lib/spring/SecurityConfig.java
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                		.requestMatchers(HttpMethod.POST, "/api/user").permitAll()
-=======
                 		.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
->>>>>>> backend:src/main/java/com/lib/spring/security/SecurityConfig.java
-=======
-                		.requestMatchers(HttpMethod.POST, "/api/users").permitAll()
->>>>>>> frontend:src/main/java/com/lib/spring/SecurityConfig.java
-                		.requestMatchers(HttpMethod.GET, "/api/users").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
                 		.requestMatchers(HttpMethod.POST, "/api/auth/logout").authenticated()
