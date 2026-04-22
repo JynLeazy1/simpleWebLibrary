@@ -10,6 +10,10 @@ function Bookitem({ book }) {
         <Link to={`/bookDetails/${id}`} className="font medium">
           {title}
         </Link>
+        <div>
+          {author}
+          {price}
+        </div>
       </div>
     </li>
   );

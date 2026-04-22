@@ -22,12 +22,8 @@ function Login() {
       className="flex min-h-screen items-center justify-center space-x-2 bg-black p-4 text-center"
     >
       <div className="flex h-[620px] w-[500px] flex-col items-center justify-start rounded-md bg-[#1c1c1c] pt-10">
-        <img
-          src="../../public/logobook.png"
-          alt="logo"
-          className="mb-10 w-24"
-        />
-        <h2 className="text-gray-300">welcome</h2>
+        <img src="/logobook.png" alt="logo" className="mb-10 w-24" />
+        <h2 className="p-4 text-gray-300">welcome to simpleweblibrary</h2>
         <div className="mb-4 w-72">
           <label className="text-gray-300">Username or email</label>
           <input
